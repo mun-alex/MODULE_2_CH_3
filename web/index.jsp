@@ -1,5 +1,6 @@
 <%@ page import="kz.bitlab.m2.model.Film" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="kz.bitlab.m2.db.DBManager" %><%--
   Created by IntelliJ IDEA.
   User: alexa
   Date: 12.01.2022
@@ -34,7 +35,7 @@
             <td><%=film.getId()%></td>
             <td><%=film.getTitle()%></td>
             <td><%=film.getDescription()%></td>
-            <td><%=film.getStudio()%></td>
+            <td><%=DBManager.getStudioByFilmId(film.getId())%></td>
             <td><%=film.getRating()%></td>
             <td><a href="/details-film?filmId=<%=film.getId()%>" class="btn btn-info">Детали</a></td>
         </tr>

@@ -31,9 +31,9 @@ public class DBManager {
                 Long id = result.getLong("id");
                 String title = result.getString("title");
                 String description = result.getString("description");
-                String studio = result.getString("studio");
+                Long studioId = result.getLong("studio_id");
                 double rating = result.getDouble("rating");
-                filmList.add(new Film(id, title, description, studio, rating));
+                filmList.add(new Film(id, title, description, studioId, rating));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class DBManager {
             PreparedStatement statement = connection.prepareStatement("insert into films values (null, ?, ?, ?, ?)");
             statement.setString(1, film.getTitle());
             statement.setString(2, film.getDescription());
-            statement.setString(3, film.getStudio());
+            statement.setLong(3, film.getStudio_id());
             statement.setDouble(4, film.getRating());
             statement.executeUpdate();
         } catch (Exception e) {
@@ -65,7 +65,7 @@ public class DBManager {
                         id,
                         result.getString("title"),
                         result.getString("description"),
-                        result.getString("studio"),
+                        result.getLong("studio_id"),
                         result.getDouble("rating")
                 );
             }
@@ -80,12 +80,30 @@ public class DBManager {
             PreparedStatement statement = connection.prepareStatement("update films set title = ?, description = ?, studio = ?, rating = ? where id = ?");
             statement.setString(1, film.getTitle());
             statement.setString(2, film.getDescription());
-            statement.setString(3, film.getStudio());
+            statement.setLong(3, film.getStudio_id());
             statement.setDouble(4, film.getRating());
             statement.setDouble(5, film.getId());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getStudioByFilmId(Long id) {
+        String studio = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "select studios.name, studios.country from films join studios on(films.studio_id = studios.id) where films.id = ?"
+            );
+            statement.setLong(1, id);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                studio = result.getString("name");
+                studio = studio + " - " + result.getString("country");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return studio;
     }
 }

@@ -24,9 +24,9 @@ public class EditFilm extends HttpServlet {
         id = Long.parseLong(request.getParameter("filmId"));
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        String studio = request.getParameter("studio");
+        Long studioId = Long.parseLong(request.getParameter("studioId"));
         double rating = Double.parseDouble(request.getParameter("rating"));
-        Film film = new Film(id, title, description, studio, rating);
+        Film film = new Film(id, title, description, studioId, rating);
         DBManager.updateFilm(film);
         response.sendRedirect("/details-film?filmId=" + id);
     }

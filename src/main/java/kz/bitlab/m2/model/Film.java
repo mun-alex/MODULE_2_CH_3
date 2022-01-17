@@ -4,18 +4,18 @@ public class Film {
     Long id;
     String title;
     String description;
-    String studio;
+    Long studio_id;
     double rating;
 
     public Film() {
 
     }
 
-    public Film(Long id, String title, String description, String studio, double rating) {
+    public Film(Long id, String title, String description, Long studio_id, double rating) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.studio = studio;
+        this.studio_id = studio_id;
         this.rating = rating;
     }
 
@@ -39,12 +39,12 @@ public class Film {
         this.description = description;
     }
 
-    public String getStudio() {
-        return studio;
+    public Long getStudio_id() {
+        return studio_id;
     }
 
-    public void setStudio(String studio) {
-        this.studio = studio;
+    public void setStudio_id(Long studio_id) {
+        this.studio_id = studio_id;
     }
 
     public double getRating() {
@@ -61,7 +61,7 @@ public class Film {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", studio='" + studio + '\'' +
+                ", studio_id=" + studio_id +
                 ", rating=" + rating +
                 '}';
     }

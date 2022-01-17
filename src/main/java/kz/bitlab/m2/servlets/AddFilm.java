@@ -20,9 +20,9 @@ public class AddFilm extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        String studio = request.getParameter("studio");
+        Long studioId = Long.parseLong(request.getParameter("studioId"));
         double rating = Double.parseDouble(request.getParameter("rating"));
-        Film film = new Film(null, title, description, studio, rating);
+        Film film = new Film(null, title, description, studioId, rating);
         DBManager.addFilm(film);
         response.sendRedirect("/main");
     }
