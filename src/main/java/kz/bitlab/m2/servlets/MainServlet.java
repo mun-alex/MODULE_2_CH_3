@@ -1,6 +1,7 @@
 package kz.bitlab.m2.servlets;
 
 import kz.bitlab.m2.db.DBManager;
+import kz.bitlab.m2.model.User;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -13,7 +14,15 @@ public class MainServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DBManager.connectToDB();
         request.setAttribute("allFilms", DBManager.getAllFilms());
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("CURRENT_USER");
+
+        if (currentUser != null) {
+            request.getRequestDispatcher("/adminPanel.jsp").forward(request, response);
+        } else  {
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 <%@ page import="kz.bitlab.m2.model.Film" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="kz.bitlab.m2.db.DBManager" %><%--
   Created by IntelliJ IDEA.
   User: alexa
   Date: 12.01.2022
@@ -30,7 +31,7 @@
                 <div class="mb-3">
                     <label for="studio" class="form-label">Киностудия</label>
                     <select name="studio" id="studio" class="d-block form-control">
-                        <option value="<%=film.getStudio()%>"><%=film.getStudio()%></option>
+<%--                        <option value="<%=%>"><%=DBManager.getStudioByFilmId(film.getId())%></option>--%>
                         <option value="WB">WB</option>
                         <option value="Kazakhfilm">Kazakhfilm</option>
                         <option value="Disney">Disney</option>
@@ -41,7 +42,7 @@
                     <input type="text" value="<%=film.getRating()%>" class="form-control" name="rating" id="rating">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <a href="/details-film?filmId=<%=film.getId()%>" class="btn btn-secondary">Закрыть</a>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </div>
             </form>

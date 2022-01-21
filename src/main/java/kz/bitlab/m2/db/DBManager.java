@@ -1,6 +1,7 @@
 package kz.bitlab.m2.db;
 
 import kz.bitlab.m2.model.Film;
+import kz.bitlab.m2.model.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -105,5 +106,26 @@ public class DBManager {
             e.printStackTrace();
         }
         return studio;
+    }
+
+    public static User getUserByEmail(String email) {
+        User user = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement("select * from users where email = ?");
+            statement.setString(1, email);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                user = new User(
+                        result.getLong("id"),
+                        result.getString("name"),
+                        result.getString("email"),
+                        result.getString("password")
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return user;
     }
 }

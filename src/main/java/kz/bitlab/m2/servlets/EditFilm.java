@@ -13,9 +13,14 @@ public class EditFilm extends HttpServlet {
     Long id;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        id = Long.parseLong(request.getParameter("filmId"));
-        request.setAttribute("film", DBManager.getFilmById(id));
-        request.getRequestDispatcher("/edit.jsp").forward(request, response);
+
+        if (request.getSession().getAttribute("CURRENT_USER") != null) {
+            id = Long.parseLong(request.getParameter("filmId"));
+            request.setAttribute("film", DBManager.getFilmById(id));
+            request.getRequestDispatcher("/edit.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("/auth");
+        }
     }
 
     @Override
